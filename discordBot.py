@@ -3,6 +3,7 @@ import youtube
 import setting
 import connect_pg
 import os
+import traceback
 
 DISCORD_TOKEN =os.environ.get('DISCORD_TOKEN') 
 DISCORD_CHANNEL_ID = os.environ.get('DISCORD_CHANNEL_ID') 
@@ -29,9 +30,11 @@ async def on_ready():
             print("Picture already posted.")
     except:
         await channel.send("画像の取得に失敗しました")
+        traceback.print_exc()
 
-    await client.logout()
-    await sys.exit()
+    finally:
+        await client.logout()
+        await sys.exit()
 
 
 @client.event
