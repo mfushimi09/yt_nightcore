@@ -51,5 +51,6 @@ Include/
 .git/
 .env
 test_connect_pg.py
+sample/
 
 

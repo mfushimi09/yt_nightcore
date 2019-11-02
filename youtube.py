@@ -43,15 +43,14 @@ def search_pic_url(clip_id):
         "key": YT_DEVELOPPER_KEY
     }
     api_res = requests.get(url, params=query)
-    # print("status:", api_res.status_code)
     description = api_res.json()["items"][0]["snippet"]["description"]
-    desc_lines = description.split("\n")
-    pic_link_str = [s for s in desc_lines if "Picture Link" in s][0]
-    # print(pic_link_str)
-    pic_url = pic_link_str[pic_link_str.find(":") + 2:]
-    
+    pic_pos = description.find("Picture Link")
+    bar_pos = description.find("▬", pic_pos)
+    pic_url = description[pic_pos+14: bar_pos]
 
     return pic_url
+    
+
 def extract_pic_url(page_url):
     '''
     画像ページから画像URLを抜き出す
@@ -64,9 +63,10 @@ def extract_pic_url(page_url):
         # その他の方法
 
 if __name__ == "__main__":
-    clip_id = get_clip_id(YT_CHANNEL_ID)
-    print("clip_id:", clip_id)
-    pic_url = search_pic_url(clip_id)
-    print("pic_url:", pic_url)
+    pass
+    # clip_id = get_clip_id(YT_CHANNEL_ID)
+    # print("clip_id:", clip_id)
+    # pic_url = search_pic_url(clip_id)
+    # print("pic_url:", pic_url)
 
     
